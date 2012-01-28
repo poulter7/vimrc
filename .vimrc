@@ -3,7 +3,7 @@
 
 
 " let's copy paste some lines from documentation
-fun SetupVAM()
+fun! SetupVAM()
 	let addons_base = expand('$HOME') . '/.vim/vim-addons'
 	exec 'set runtimepath+='.addons_base.'/vim-addon-manager'
 
@@ -11,10 +11,13 @@ fun SetupVAM()
 	  exec '!p='.shellescape(addons_base).'; mkdir -p "$p" && cd "$p" && git clone git://github.com/MarcWeber/vim-addon-manager.git'
 	endif
 
-    call vam#ActivateAddons(['Solarized', 'Syntastic','The_NERD_tree', 'pyflakes2441',  'endwise', 'surround', 'rails', 'cucumber.zip', 'bundler', 'supertab',  'vcscommand', 'vim-addon-scala'], {'auto_install' : 0})
+    call vam#ActivateAddons(['Solarized', 'Syntastic','The_NERD_tree', 'pyflakes%2441',  'endwise', 'surround', 'rails', 'cucumber.zip', 'bundler', 'supertab',  'vcscommand', 'vim-addon-scala', 'rvm'], {'auto_install' : 1})
     " 
 endf
 call SetupVAM()
+
+au! BufWritePost .vimrc source %
+au! BufWritePost .vimrc source %
 
 autocmd BufNewFile,BufRead *.csv setf csv
 autocmd BufNewFile,BufRead *.tcl setf tcl
@@ -22,6 +25,13 @@ autocmd BufNewFile,BufRead *.tcl setf tcl
 "setup shortcuts
 let mapleader = "\\"
 map <Leader>n :NERDTreeToggle<CR>
+
+"check syntax on load
+let g:syntastic_check_on_open=1
+"jump to error
+let g:syntastic_auto_jump=1
+"error window opens and closes
+let g:syntastic_auto_loc_list=1
 
 
 map <S-Enter> O<Esc>
